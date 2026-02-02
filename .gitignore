@@ -137,3 +137,10 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Chrome Extension specific
+*.crx
+*.pem
+*.zip
+.DS_Store
+Thumbs.db

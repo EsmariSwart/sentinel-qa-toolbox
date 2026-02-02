@@ -1,0 +1,66 @@
+/* Sentinel QA Toolbox - Content Script Styles */
+
+/* Ruler overlay styles */
+.sentinel-ruler-overlay {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999999;
+  border: 2px solid #03592a;
+  background: rgba(3, 89, 42, 0.1);
+  box-sizing: border-box;
+}
+
+.sentinel-ruler-info {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000000;
+  white-space: pre-line;
+  line-height: 1.4;
+}
+
+.sentinel-ruler-info strong {
+  color: #03592a;
+}
+
+/* Typography highlight styles */
+.sentinel-typography-highlight {
+  outline: 2px solid #FF9800 !important;
+  outline-offset: 2px;
+  background: rgba(255, 152, 0, 0.1) !important;
+}
+
+/* Spacing measurement lines */
+.sentinel-spacing-line {
+  position: absolute;
+  background: #2196F3;
+  pointer-events: none;
+  z-index: 999998;
+}
+
+.sentinel-spacing-line.horizontal {
+  height: 1px;
+  width: 100%;
+}
+
+.sentinel-spacing-line.vertical {
+  width: 1px;
+  height: 100%;
+}
+
+.sentinel-spacing-label {
+  position: absolute;
+  background: #2196F3;
+  color: white;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-family: monospace;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 999999;
+}
