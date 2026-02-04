@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <style>
     body {
-      width: 250px;
+      width: 320px;
       padding: 12px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       margin: 0;
@@ -13,6 +13,22 @@
       margin: 0 0 12px 0;
       font-size: 16px;
       color: #333;
+    }
+    .section {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     button {
       width: 100%;
@@ -33,6 +49,26 @@
       color: white;
       border-color: #03592a;
     }
+    button.small {
+      padding: 6px;
+      font-size: 12px;
+      width: auto;
+      display: inline-block;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .viewport-info {
+      font-size: 11px;
+      color: #666;
+      padding: 8px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+    .viewport-info strong {
+      color: #03592a;
+    }
     .status {
       font-size: 12px;
       color: #666;
@@ -41,12 +77,80 @@
       padding-top: 8px;
       border-top: 1px solid #eee;
     }
+    input[type="text"] {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+    }
+    .filter-controls {
+      margin-top: 8px;
+    }
+    .filter-controls label {
+      display: block;
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+    select {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
   <h3>Sentinel QA Toolbox</h3>
-  <button id="toggleRuler">Toggle Ruler</button>
-  <button id="auditType">Audit Typography</button>
+  
+  <div class="section">
+    <div class="section-title">Inspection Tools</div>
+    <button id="toggleRuler">Toggle Ruler</button>
+    <button id="auditType">Audit Typography</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Console Log Capture</div>
+    <button id="toggleConsole">Toggle Console Capture</button>
+    <div class="filter-controls" id="consoleFilters" style="display: none;">
+      <label>Log Level:</label>
+      <select id="logLevel">
+        <option value="all">All Levels</option>
+        <option value="error">Error Only</option>
+        <option value="warn">Warning & Error</option>
+        <option value="info">Info, Warning & Error</option>
+      </select>
+      <label>Filter (Regex):</label>
+      <input type="text" id="logRegex" placeholder="Optional regex filter">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Viewport Info</div>
+    <div style="font-size: 10px; color: #999; margin-bottom: 6px;">
+      Shows current viewport size and device pixel ratio (DPR).
+    </div>
+    <div class="viewport-info" id="viewportInfo">
+      Loading...
+    </div>
+    <button class="small" id="refreshViewport">Refresh Info</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Export & Data</div>
+    <div style="font-size: 10px; color: #999; margin-bottom: 6px;">
+      Export All: Exports captured console logs (with current filters applied). Clear All Data: Removes captured logs only (preserves your feature toggles).
+    </div>
+    <button id="exportAll">Export All</button>
+    <button id="clearData">Clear All Data</button>
+  </div>
+
   <div class="status" id="status">Sentinel is ready.</div>
   <script src="popup.js"></script>
 </body>

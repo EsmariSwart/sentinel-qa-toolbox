@@ -1,8 +1,10 @@
 // Sentinel QA Toolbox - Service Worker
 // Handles extension state, messaging, and data export
 
+const MAX_CONSOLE_LOGS = 1000; // Ring buffer limit
+
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Sentinel QA Toolbox installed');
+  console.log("Sentinel QA Toolbox installed");
 });
 
 // Listen for messages from content script and popup
@@ -22,6 +24,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
     });
     sendResponse({ success: true });
+  } else if (request.action === 'storeConsoleLog') {
+    // Store console log with ring buffer
+    chrome.storage.local.get(['consoleLogs'], (result) => {
+      let logs = result.consoleLogs || [];
+      
+      // Add new log
+      logs.push(request.log);
+      
+      // Maintain ring buffer size
+      if (logs.length > MAX_CONSOLE_LOGS) {
+        logs = logs.slice(-MAX_CONSOLE_LOGS);
+      }
+      
+      chrome.storage.local.set({ consoleLogs: logs });
+    });
+    sendResponse({ success: true });
   } else if (request.action === 'exportData') {
     // Handle data export (to be implemented)
     sendResponse({ success: true });
@@ -31,5 +49,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 // Get current state from storage
 chrome.storage.onChanged.addListener((changes, areaName) => {
-  console.log('Storage changed:', changes, areaName);
+  console.log("Storage changed:", changes, areaName);
 });

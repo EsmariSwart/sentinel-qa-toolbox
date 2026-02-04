@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+*.crx
+*.zip
+*.pem
+
+# Icons and assets
+icons/*.png
+icons/*.svg
+
+# Generated files
+*.log
