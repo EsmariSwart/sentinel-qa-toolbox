@@ -1,0 +1,15 @@
+{
+  "name": "sentinel-qa-toolbox",
+  "version": "1.0.0",
+  "description": "A lightweight manual QA companion for layout, typography, and diagnostics.",
+  "scripts": {
+    "build": "echo 'Building extension...'",
+    "lint": "echo 'Linting extension...'",
+    "format": "echo 'Formatting extension...'",
+    "test": "echo 'Running tests...'"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  }
+}

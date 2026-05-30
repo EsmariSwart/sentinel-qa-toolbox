@@ -4,6 +4,10 @@
 (function() {
   "use strict";
 
+  // Idempotency guard to prevent multiple injections
+  if (window.__sentinelQALoaded) return;
+  window.__sentinelQALoaded = true;
+
   // Create Shadow DOM to isolate our styles
   const shadowHost = document.createElement('div');
   shadowHost.id = 'sentinel-qa-host';
@@ -274,7 +278,17 @@
 
   // Ruler functionality
   function enableRuler() {
-    document.addEventListener('mousemove', handleMouseMove);
+    let rafPending = false;
+    const throttledMouseMove = (e) => {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        handleMouseMove(e);
+        rafPending = false;
+      });
+    };
+    
+    document.addEventListener('mousemove', throttledMouseMove);
     document.addEventListener('click', handleElementClick);
   }
 
